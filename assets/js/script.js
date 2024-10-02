@@ -42,3 +42,63 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+require('dotenv').config(); // Carrega as variáveis do arquivo .env
+
+const token = process.env.GITHUB_TOKEN; // Acessa o token do GitHub
+
+async function fetchAllPublicRepos() {
+    const username = 'matheusbatista103';
+    const url = `https://api.github.com/users/${username}/repos`;
+    const headers = {
+        Authorization: `token ${token}`
+    };
+
+    try {
+        const response = await fetch(url, { headers });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch repositories: ${response.status} ${response.statusText}`);
+        }
+        const repos = await response.json();
+        return repos;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function getTotalCommits() {
+    const repos = await fetchAllPublicRepos();
+    if (!repos) return 0; // Verifica se repos não é nulo
+    let totalCommits = 0;
+
+    for (const repo of repos) {
+        const commitsUrl = `https://api.github.com/repos/${repo.full_name}/commits`;
+        const headers = {
+            Authorization: `token ${token}`
+        };
+
+        try {
+            const response = await fetch(commitsUrl, { headers });
+            if (!response.ok) {
+                throw new Error(`Failed to fetch commits for repo ${repo.name}: ${response.status} ${response.statusText}`);
+            }
+            const commits = await response.json();
+            totalCommits += commits.length; // Soma o número de commits
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    return totalCommits; // Retorna o total de commits
+}
+
+// Atualiza o card com o total de commits
+async function updateCommitCard() {
+    const commitCount = await getTotalCommits();
+    const commitCountElement = document.getElementById('commit-count');
+    commitCountElement.textContent = commitCount !== 0 ? commitCount : 'Erro ao carregar'; // Atualiza o elemento
+}
+
+// Chama a função para atualizar o card ao carregar a página
+updateCommitCard();
+

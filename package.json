@@ -1,0 +1,16 @@
+{
+    "name": "meucurriculo",
+    "version": "1.0.0",
+    "description": "Projeto para contar os commits do GitHub",
+    "main": "script.js",
+    "scripts": {
+      "start": "node script.js"
+    },
+    "keywords": [],
+    "author": "Matheus de Pauli Batista",
+    "license": "ISC",
+    "dependencies": {
+      "dotenv": "^10.0.0"
+    }
+  }
+  
