@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
@@ -17,7 +18,7 @@
     <section id="home", class="section active">
         <div class="container">
             <h1>Mathus de Pauli Batista</h1>
-            <h2>Sou <span>estudante de TI</span></h2>
+            <h2>Sou <span id="dynamic-text">estudante de TI</span></h2>
 
             <div id="nav-bar" class="nav-bar">
                 <ul>
@@ -43,16 +44,32 @@
                 <li><a href="#home" class="nav-link2">Inicio</a></li>
                 <li><a href="#about" class="nav-link2">Sobre</a></li>
                 <li><a href="#portfolio" class="nav-link2">Portfolio</a></li>
-                <li><a href="#Courses" class="nav-link2">Cursos</a></li>
+                <li><a href="#courses" class="nav-link2">Cursos</a></li>
                 <li><a href="#contact" class="nav-link2">Contato</a></li>
             </ul>
-        <div class="sobre-mim">
-            <a href="#home">teste</a>
         </div>
-    </section>
+        <h2>SOBRE MIM</h2>
+        <div class="info">
+            <img src="assets/img/me.jpg" alt="Foto de Matheus">
+            <div class="detalhes">
+                <h3><span>Estudante</span></h3>
+                <p>Em 2024 comecei o curso de técnico em informática na Etec Maria Cristina Medeiros.</p>
+                <ul>
+                    <li><i class="fas fa-birthday-cake"></i> Aniversário: 28 de março de 2009</li>
+                    <li><i class="fab fa-github"></i> Meu Github: matheusbatista103</li>
+                    <li><i class="fas fa-phone"></i> Telefone: +5511975640708</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Cidade: Ribeirão Pires-SP</li>
+                    <li><i class="fas fa-user"></i> Idade: 15</li>
+                    <li><i class="fas fa-graduation-cap"></i> Aprendizado: Início</li>
+                    <li><i class="fas fa-envelope"></i> Email: matheusdepaulicontato@gmail.com</li>
+                </ul>
+                <p>Eu sou Matheus de Pauli Batista, sou uma pessoa extrovertida e gosto de trabalhar em equipe. Estou sempre buscando aprender mais sobre desenvolvimento web e programação.</p>
+            </div>
+        </div>
+    </section>    
 
     <section id="portfolio" class="section">
-
+        
     </section>
     <section id="courses" class="section">
 
@@ -62,5 +79,37 @@
     </section>
 
     <script src="assets/js/script.js"></script>
+    <script>
+        const texts = ["estudante de TI", "freelancer", "desenvolvedor web", "apaixonado por tecnologia", "desenvolvedor web",];
+    
+        let index = 0;
+let textIndex = 0;
+const dynamicTextElement = document.getElementById('dynamic-text');
+
+function type() {
+  if (textIndex < texts[index].length) {
+    dynamicTextElement.textContent += texts[index].charAt(textIndex);
+    textIndex++;
+    setTimeout(type, 100); // Aumente ou diminua o tempo para controlar a velocidade da digitação
+  } else {
+    setTimeout(deleteText, 2000); // Tempo antes de deletar o texto
+  }
+}
+
+function deleteText() {
+  if (textIndex > 0) {
+    dynamicTextElement.textContent = texts[index].substring(0, textIndex - 1);
+    textIndex--;
+    setTimeout(deleteText, 50); // Aumente ou diminua para controlar a velocidade de deletar
+  } else {
+    index = (index + 1) % texts.length; // Muda para o próximo texto
+    setTimeout(type, 1000); // Tempo antes de começar a digitar o próximo texto
+  }
+}
+
+// Começa a digitar o primeiro texto
+type();
+    </script>
+    
 </body>
 </html>
