@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-require('dotenv').config(); // Carrega as variáveis do arquivo .env
+require('dotenv').config();
 
-const token = process.env.GITHUB_TOKEN; // Acessa o token do GitHub
+const token = process.env.GITHUB_TOKEN;
 
 async function fetchAllPublicRepos() {
     const username = 'matheusbatista103';
@@ -68,7 +68,7 @@ async function fetchAllPublicRepos() {
 
 async function getTotalCommits() {
     const repos = await fetchAllPublicRepos();
-    if (!repos) return 0; // Verifica se repos não é nulo
+    if (!repos) return 0;
     let totalCommits = 0;
 
     for (const repo of repos) {
